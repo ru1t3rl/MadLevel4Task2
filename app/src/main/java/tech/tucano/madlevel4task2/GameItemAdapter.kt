@@ -15,7 +15,7 @@ class GameItemAdapter (private val gameItems: List<Game>) :
 
         fun dataBind(gameItem: Game){
             binding.tvDate.text = gameItem.date
-            binding.tvResults.text = ""
+            binding.tvResults.text = gameItem.result.replace(':', ' ')
 
             var actionDrawable: Drawable? = getActionDrawable(gameItem.cpuSet)
 

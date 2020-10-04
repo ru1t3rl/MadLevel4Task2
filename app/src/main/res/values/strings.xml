@@ -5,12 +5,13 @@
     <string name="instructions">Instructions: select rock, paper or scissors to play.</string>
     <string name="all_time_stats">Your all time statistics</string>
 
-    <string name="you_win">You win!</string>
-    <string name="computer_wins">Computer Wins!</string>
+    <string name="result_you_win">You win!</string>
+    <string name="result_computer_wins">Computer Wins!</string>
+    <string name="result_draw">It\'s a draw!</string>
 
-    <string name="lose">Lose:</string>
-    <string name="draw">Draw:</string>
-    <string name="win">Win:</string>
+    <string name="lose">Lose: </string>
+    <string name="draw">Draw: </string>
+    <string name="win">Win: </string>
 
     <string name="vs">V.S.</string>
     <string name="computer">Computer</string>
@@ -19,4 +20,13 @@
     <string name="rock">rock</string>
     <string name="paper">paper</string>
     <string name="scissors">scissors</string>
+    <string-array name="actions">
+        <item name="rock">rock</item>
+        <item name="paper">paper</item>
+        <item name="scissors">scissors</item>
+    </string-array>
+
+    <string name="delete_all">Delete All</string>
+    <string name="history">History</string>
+    <string name="back">Back</string>
 </resources>

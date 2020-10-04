@@ -13,8 +13,8 @@ data class Game (
     @ColumnInfo(name="cpu_set")
     var cpuSet: String,
 
-    @ColumnInfo(name="winner")
-    var winner: String,
+    @ColumnInfo(name="result")
+    var result: String,
 
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null

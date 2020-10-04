@@ -1,23 +1,20 @@
 package tech.tucano.madlevel4task2
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import tech.tucano.madlevel4task2.databinding.FragmentHistoryBinding
+import tech.tucano.madlevel4task2.databinding.ActivityHistoryBinding
 
-class HistoryFragment: Fragment() {
-    private lateinit var binding: FragmentHistoryBinding
+class HistoryActivity: AppCompatActivity() {
+    private lateinit var binding: ActivityHistoryBinding
     private lateinit var gameRepository: GameRepository
 
     private var games = arrayListOf<Game>()
@@ -25,35 +22,29 @@ class HistoryFragment: Fragment() {
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHistoryBinding.inflate(layoutInflater)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        return binding.root
-    }
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        gameRepository = GameRepository(requireContext())
+        gameRepository = GameRepository(binding.root.context)
 
         initRv()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.history_menu, menu)
+        return true
+    }
+
     private fun initRv(){
-        binding.rvGames.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.rvGames.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
         binding.rvGames.adapter = gameAdapter
-        binding.rvGames.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
 
         createItemTouchHelper().attachToRecyclerView(rv_games)
+        getGamesFromDatabase()
     }
 
     private fun getGamesFromDatabase() {
@@ -62,9 +53,9 @@ class HistoryFragment: Fragment() {
                 gameRepository.getAllGames()
             }
 
-            this@HistoryFragment.games.clear()
-            this@HistoryFragment.games.addAll(games)
-            this@HistoryFragment.gameAdapter.notifyDataSetChanged()
+            this@HistoryActivity.games.clear()
+            this@HistoryActivity.games.addAll(games)
+            this@HistoryActivity.gameAdapter.notifyDataSetChanged()
         }
     }
 
@@ -102,5 +93,22 @@ class HistoryFragment: Fragment() {
         }
 
         return ItemTouchHelper(callback)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//         Handle action bar item clicks here. The action bar will
+//         automatically handle clicks on the Home/Up button, so long
+//         as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.mi_delete_all -> {
+                removeAllGames()
+                return true
+            }
+            R.id.home -> {
+                this.finish()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
