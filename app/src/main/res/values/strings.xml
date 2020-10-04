@@ -15,4 +15,8 @@
     <string name="vs">V.S.</string>
     <string name="computer">Computer</string>
     <string name="you">You</string>
+
+    <string name="rock">rock</string>
+    <string name="paper">paper</string>
+    <string name="scissors">scissors</string>
 </resources>

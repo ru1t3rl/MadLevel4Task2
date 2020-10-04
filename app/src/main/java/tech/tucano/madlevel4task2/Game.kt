@@ -10,10 +10,10 @@ data class Game (
     @ColumnInfo(name="player_set")
     var playerSet: String,
 
-    @ColumnInfo(name="player_set")
+    @ColumnInfo(name="cpu_set")
     var cpuSet: String,
 
-    @ColumnInfo(name="player_set")
+    @ColumnInfo(name="winner")
     var winner: String,
 
     @PrimaryKey(autoGenerate = true)
