@@ -1,21 +1,17 @@
 package tech.tucano.madlevel4task2
 
-import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.tucano.madlevel4task2.databinding.FragmentGameBinding
-import java.text.DateFormat.getDateTimeInstance
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
@@ -138,18 +134,16 @@ class GameFragment : Fragment() {
         // Insert data in database
         mainScope.launch {
             withContext(Dispatchers.IO) {
-                val text = binding.tvWinner.text.toString().toLowerCase()
+                val text = binding.tvWinner.text.toString().toLowerCase(Locale.ROOT)
                 val result: String
 
-                if (text.contains(getString(R.string.you).toLowerCase())) {
-                    result = getString(R.string.win)
-                } else if (text.contains(getString(R.string.computer).toLowerCase())) {
-                    result = getString(R.string.lose)
+                result = if (text.contains(getString(R.string.you).toLowerCase(Locale.ROOT))) {
+                    getString(R.string.win)
+                } else if (text.contains(getString(R.string.computer).toLowerCase(Locale.ROOT))) {
+                    getString(R.string.lose)
                 } else {
-                    result = getString(R.string.draw)
+                    getString(R.string.draw)
                 }
-
-                Log.i("GameResult", text + " | Result:" + result)
 
                 // Get the date and time
                 val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z")
@@ -163,7 +157,7 @@ class GameFragment : Fragment() {
     }
 
     private fun getActionDrawable(action: String): Drawable? {
-        return when (action.toLowerCase()) {
+        return when (action.toLowerCase(Locale.ROOT)) {
             getString(R.string.rock) -> ContextCompat.getDrawable(
                 requireContext(),
                 R.drawable.rock

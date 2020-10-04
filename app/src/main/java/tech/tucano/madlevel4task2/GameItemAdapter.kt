@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.recyclerview.widget.RecyclerView
 import tech.tucano.madlevel4task2.databinding.ItemGameBinding
+import java.util.*
 
 class GameItemAdapter (private val gameItems: List<Game>) :
     RecyclerView.Adapter<GameItemAdapter.ViewHolder>(){
@@ -28,7 +29,7 @@ class GameItemAdapter (private val gameItems: List<Game>) :
         }
 
         private fun getActionDrawable(action: String) : Drawable? {
-            return when(action.toLowerCase()){
+            return when (action.toLowerCase(Locale.ROOT)){
                 itemView.context.getString(R.string.rock) -> getDrawable(itemView.context, R.drawable.rock)
                 itemView.context.getString(R.string.paper) -> getDrawable(itemView.context, R.drawable.paper)
                 itemView.context.getString(R.string.scissors) -> getDrawable(itemView.context, R.drawable.scissors)
