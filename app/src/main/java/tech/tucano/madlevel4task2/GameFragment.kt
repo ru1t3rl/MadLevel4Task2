@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import tech.tucano.madlevel4task2.databinding.FragmentGameBinding
 import java.text.DateFormat.getDateTimeInstance
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.random.Random
 
 
@@ -150,9 +152,9 @@ class GameFragment : Fragment() {
                 Log.i("GameResult", text + " | Result:" + result)
 
                 // Get the date and time
-                val simpleDateFormat = getDateTimeInstance().toString()
+                val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z")
 
-                gameRepository.insertGame(Game(simpleDateFormat, playerSet, cpuSet, result))
+                gameRepository.insertGame(Game(simpleDateFormat.format(Date()), playerSet, cpuSet, result))
 
                 // Update the stats
                 getGamesFromDatabase()
